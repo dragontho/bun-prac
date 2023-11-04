@@ -40,3 +40,10 @@ const chess = Chessboard('chess', config)
 
 // Create an SSE connection
 const sse = new EventSource("/chess/stream")
+// Receive moves for gameId
+sse.addEventListener(gameId, msg => {
+    console.info(">>> SSE msg: ", msg)
+    const { src, dst, piece } = JSON.parse(msg.data)
+    console.info(`src=${src}, dst=${dst}, piece=${piece}`)
+    chess.move(`${src}-${dst}`)
+})

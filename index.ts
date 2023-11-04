@@ -44,6 +44,8 @@ app.patch("/chess/:gameId", express.json(), (req, resp) => {
     const move = req.body
 
     console.log(`GameId: ${gameId}: `, move)
+    // The engine stringifies for you. Should consider stringifying based on rendering engine
+    sse.send({ event: gameId, data: move })
 
     resp.status(201).json({ timestamp: (new Date()).getTime() })
 })
